@@ -802,6 +802,7 @@ function Contact() {
 }
 
 // ─── App Root ────────────────────────────────────────────────────────────────
+// ─── App Root ────────────────────────────────────────────────────────────────
 export default function App() {
   const [section, setSection] = useState("home");
   const [modalProject, setModalProject] = useState(null);
@@ -813,7 +814,7 @@ export default function App() {
   const navTo = useCallback((s) => {
     setSection(s);
     refs[s]?.current?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+  }, [refs]); // Added 'refs' dependency to fix line 816 warning
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -831,7 +832,7 @@ export default function App() {
       }
     });
     return () => observer.disconnect();
-  }, []);
+  }, [refs]); // Added 'refs' dependency to fix line 834 warning
 
   return (
     <div style={{ background: "#050508", minHeight: "100vh", color: "#fff", overflowX: "hidden" }}>
